@@ -14,7 +14,7 @@ export default function Flashcard({
   index: number;
 }) {
   const [activeCard, setActiveCard] = useState<number | null>(null);
-
+  console.log(activeCard);
   return (
     <CarouselItem className="flex justify-center">
       <Card
