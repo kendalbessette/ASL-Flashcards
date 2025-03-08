@@ -1,4 +1,3 @@
-import { DarkModeToggle } from "@/components/DarkModeToggle";
 import { Card, CardContent } from "@/components/ui/card";
 import { getLessons } from "@/lib/api";
 import { sortLessons } from "@/lib/utils";

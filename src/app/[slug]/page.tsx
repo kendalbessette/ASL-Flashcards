@@ -1,4 +1,3 @@
-import { DarkModeToggle } from "@/components/DarkModeToggle";
 import Flashcard from "@/components/Flashcard";
 import {
   Carousel,
@@ -15,12 +14,18 @@ export interface Flashcard {
   youtubeLink: string;
 }
 
-export default async function LessonPage({
+export default async function Page({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const flashcards = await getFlashcards(params.slug);
+  const { slug } = await params;
+
+  if (!slug) {
+    return notFound();
+  }
+
+  const flashcards = await getFlashcards(slug);
 
   if (!flashcards || flashcards.length === 0) {
     return notFound();
