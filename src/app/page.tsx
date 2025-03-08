@@ -1,51 +1,35 @@
-async function getFlashcards() {
-  const NEXT_HYGRAPH_ENDPOINT = process.env.NEXT_HYGRAPH_ENDPOINT;
-  if (NEXT_HYGRAPH_ENDPOINT) {
-    const response = await fetch(NEXT_HYGRAPH_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        query: `query Lesson {
-        lesson (where: {slug:"level-2-week-2"}) {
-          flashcard {
-            term
-            youtubeLink
-          }
-        }
-      }`,
-      }),
-    });
-    const json = await response.json();
-    return json.data.lesson;
-  }
-}
+import { DarkModeToggle } from "@/components/DarkModeToggle";
+import { Card, CardContent } from "@/components/ui/card";
+import { getLessons } from "@/lib/api";
+import { sortLessons } from "@/lib/utils";
+import Link from "next/link";
+import React from "react";
 
-interface Card {
-  term: string;
-  youtubeLink: string;
+export interface Lesson {
+  slug: string;
+  id: string;
+  title: string;
 }
 
 export default async function Home() {
-  const { flashcard } = await getFlashcards();
-  console.log(flashcard);
+  let lessons = await getLessons();
+  lessons = sortLessons(lessons);
+
   return (
-    <div className="m-12">
-      <h1 className="text-5xl font-bold mb-4">
-        Hygraph Implementation Guides demo
-      </h1>
-      <ul>
-        {flashcard.map((card: Card) => {
-          const { term, youtubeLink } = card;
-          return (
-            <>
-              <div>{card.term}</div>
-              <div>{card.youtubeLink}</div>
-            </>
-          );
-        })}
-      </ul>
-    </div>
+    <>
+      <div className="p-12">
+        <ul className="flex w-full flex-wrap justify-center gap-4">
+          {lessons.map((lesson: Lesson) => (
+            <Link key={lesson.id} href={`/${lesson.slug}`}>
+              <Card className="p-4 h-48 max-w-[800px] cursor-pointer flex flex-col justify-center items-center dark:hover:bg-zinc-900 hover:bg-zinc-100">
+                <CardContent className="h-full w-full flex flex-col justify-center items-center">
+                  {lesson.title}
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 }
