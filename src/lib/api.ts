@@ -11,7 +11,7 @@ export async function getFlashcards(slug: string): Promise<Flashcard[]> {
       body: JSON.stringify({
         query: `query Lesson {
                     lesson (where: {slug:"${slug}"}) {
-                        flashcard {
+                        flashcard(first: 100) {
                             term
                             youtubeLink
                         }

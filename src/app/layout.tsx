@@ -23,12 +23,12 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
+          // disableTransitionOnChange
         >
           <div className="flex min-h-16 items-center pl-8 pr-8 border-b-1 justify-between">
             <Link href="/">
               <Button variant="outline" size="icon" className="cursor-pointer">
-                <Home className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <Home className="h-[1.2rem] w-[1.2rem] transition-all dark:rotate-0 dark:scale-100" />
               </Button>
             </Link>
             <DarkModeToggle />

@@ -16,8 +16,8 @@ export default async function Home() {
 
   return (
     <>
-      <div className="p-12">
-        <ul className="flex w-full flex-wrap justify-center gap-4">
+      <div className="p-8">
+        <ul className="grid grid-cols-3 w-full gap-4">
           {lessons.map((lesson: Lesson) => (
             <Link key={lesson.id} href={`/${lesson.slug}`}>
               <Card className="p-4 h-48 max-w-[800px] cursor-pointer flex flex-col justify-center items-center dark:hover:bg-zinc-900 hover:bg-zinc-100">

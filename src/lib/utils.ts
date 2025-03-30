@@ -13,7 +13,7 @@ export function getYouTubeEmbedUrl(url: string, autoplay = false): string {
   return match
     ? `https://www.youtube.com/embed/${match[1]}?autoplay=${
         autoplay ? "1" : "0"
-      }&mute=1&controls=0`
+      }&mute=1&controls=0&showinfo=0`
     : "";
 }
 
@@ -22,7 +22,7 @@ export function sortLessons(lessons: Lesson[]): Lesson[] {
     const matchA = a.slug.match(/level-(\d+)-week-(\d+)/);
     const matchB = b.slug.match(/level-(\d+)-week-(\d+)/);
 
-    if (!matchA || !matchB) return 0; // If the format is incorrect, keep original order
+    if (!matchA || !matchB) return 0;
 
     const [levelA, weekA] = matchA.slice(1).map(Number);
     const [levelB, weekB] = matchB.slice(1).map(Number);
